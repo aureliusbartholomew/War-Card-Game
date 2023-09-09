@@ -8,6 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+   
+   @State var playerCard = "card5"
+   @State var cpuCard = "card7"
+    
+   @State var playerScore = 0
+   @State var cpuScore = 0
+    
     var body: some View {
         
         ZStack {
@@ -23,9 +30,9 @@ struct ContentView: View {
                 // Cards
                 HStack {
                     Spacer()
-                    Image ("card5")
+                    Image (playerCard)
                     Spacer()
-                    Image ("card7")
+                    Image (cpuCard)
                     Spacer()
                     
                 }
@@ -33,9 +40,12 @@ struct ContentView: View {
                 // Button
                 Spacer()
                 
-                Button("Deal") {
-                    print("Deal Cards")
+                Button {
+                    deal()
+                } label: {
+                    Image("button")
                 }
+
              
                 Spacer()
                 
@@ -46,7 +56,7 @@ struct ContentView: View {
                         Text("Player")
                             .font(.headline)
                             .padding(10)
-                        Text("0")
+                        Text(String(playerScore))
                             .font(.largeTitle)
 
                     }
@@ -55,7 +65,7 @@ struct ContentView: View {
                         Text("CPU")
                             .font(.headline)
                             .padding(10)
-                        Text("0")
+                        Text(String(cpuScore))
                             .font(.largeTitle)
                     }
                     Spacer()
@@ -65,6 +75,29 @@ struct ContentView: View {
             }
         }
     
+    }
+    
+    func deal() {
+       // Randomise player cards
+        let playerCardValue = Int.random(in: 2...14)
+        playerCard = "card" + String(playerCardValue)
+        
+       // Randomise cpu cards
+        let cpuCardValue = Int.random(in: 2...14)
+        cpuCard = "card" + String(cpuCardValue)
+        
+      // Update scores
+        if playerCardValue > cpuCardValue {
+            playerScore += 1
+            
+        } else if cpuCardValue > playerCardValue {
+            
+            cpuScore += 1
+            
+        } else {
+//            cpuCardValue += 0
+//            playerScore += 0
+        }
     }
 }
 
